@@ -27,6 +27,21 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
     // Fill background
     ctx.fillStyle = "#fff"
     ctx.fillRect(0, 0, width, height)
+    // Draw black border for all frames except 'none'
+    if (selectedFrame !== "none") {
+      ctx.save()
+      ctx.strokeStyle = "#000"
+      ctx.lineWidth = 8
+      ctx.beginPath()
+      ctx.moveTo(padding, padding + 16)
+      ctx.arcTo(padding, padding, padding + qrSize, padding, 32)
+      ctx.arcTo(padding + qrSize, padding, padding + qrSize, padding + qrSize, 32)
+      ctx.arcTo(padding + qrSize, padding + qrSize, padding, padding + qrSize, 32)
+      ctx.arcTo(padding, padding + qrSize, padding, padding, 32)
+      ctx.closePath()
+      ctx.stroke()
+      ctx.restore()
+    }
     // Draw QR code
     const qrImg = new window.Image()
     await new Promise(resolve => {
@@ -36,7 +51,6 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
     ctx.drawImage(qrImg, (width - qrSize) / 2, padding, qrSize, qrSize)
     // Draw frame
     if (selectedFrame === "classic") {
-      // Black bar below QR
       ctx.fillStyle = "#000"
       ctx.fillRect((width - qrSize) / 2, padding + qrSize, qrSize, barHeight)
       ctx.font = "bold 28px Arial"
@@ -45,10 +59,8 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
       ctx.textBaseline = "middle"
       ctx.fillText(frameText, width / 2, padding + qrSize + barHeight / 2)
     } else if (selectedFrame === "pointer") {
-      // Black bar
       ctx.fillStyle = "#000"
       ctx.fillRect((width - qrSize) / 2, padding + qrSize, qrSize, barHeight)
-      // Pointer
       ctx.beginPath()
       ctx.moveTo(width / 2 - 40, padding + qrSize + barHeight)
       ctx.lineTo(width / 2 + 40, padding + qrSize + barHeight)
@@ -56,17 +68,15 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
       ctx.closePath()
       ctx.fillStyle = "#000"
       ctx.fill()
-      // Text
       ctx.font = "bold 28px Arial"
       ctx.fillStyle = "#fff"
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
       ctx.fillText(frameText, width / 2, padding + qrSize + barHeight / 2)
     } else if (selectedFrame === "text-inside") {
-      // White bar with black border below QR
       ctx.save()
       ctx.strokeStyle = "#000"
-      ctx.lineWidth = 6
+      ctx.lineWidth = 8
       ctx.beginPath()
       ctx.moveTo((width - qrSize) / 2, padding + qrSize)
       ctx.lineTo((width + qrSize) / 2, padding + qrSize)
@@ -97,7 +107,7 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
         <h2 className="text-xl font-semibold text-gray-800">Download your QR</h2>
       </div>
       <div className="flex flex-col items-center flex-1 justify-center">
-        <div className="rounded-2xl shadow-lg flex items-center justify-center mb-8" style={{ width: '200px', height: '200px' }}>
+        <div className="bg-white rounded-2xl shadow-lg flex items-center justify-center mb-8" style={{ width: '200px', height: '200px' }}>
           <FrameRenderer
             websiteUrl={websiteUrl}
             qrCodeDataUrl={qrCodeDataUrl}

@@ -32,12 +32,12 @@ const MiniFrameRenderer = ({ frameId, qrCodeUrl }) => {
     return (
       <div className="flex flex-col items-center w-full h-full">
         <div className="bg-white border-2 border-black rounded-lg flex items-center justify-center w-10 h-10 mx-auto mt-1">
-          {qrCodeUrl ? (
+        {qrCodeUrl ? (
             <img src={qrCodeUrl} alt="QR Code" className="w-7 h-7 object-contain" />
-          ) : (
+        ) : (
             <div className="w-7 h-7 bg-gray-200 rounded" />
-          )}
-        </div>
+        )}
+      </div>
         <div className="relative w-10">
           <div className="w-10 h-3 bg-black rounded-b-lg flex items-center justify-center mt-1">
             <span className="text-[8px] text-white font-bold">Text</span>
@@ -47,7 +47,7 @@ const MiniFrameRenderer = ({ frameId, qrCodeUrl }) => {
               <path d="M6 8L0 0H12L6 8Z" fill="black" />
             </svg>
           </div>
-        </div>
+      </div>
       </div>
     )
   }
@@ -63,7 +63,7 @@ const MiniFrameRenderer = ({ frameId, qrCodeUrl }) => {
         </div>
         <div className="w-10 h-3 bg-white border-x-2 border-b-2 border-black rounded-b-lg flex items-center justify-center mt-1">
           <span className="text-[8px] text-black font-bold">Text</span>
-        </div>
+      </div>
       </div>
     )
   }
