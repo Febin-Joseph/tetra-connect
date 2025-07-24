@@ -101,6 +101,7 @@ const QRGenerator = () => {
           qrCodeDataUrl={qrCodeDataUrl}
           selectedFrame={selectedFrame}
           frameText={frameText}
+          selectedShape={selectedShape}
         />
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { shapeStyles, borderStyles, centerStyles } from "../../data/shapeOptions"
 import ShapeOption from "../ShapeOption"
 import ColorInput from "../ColorInput"
+import { useEffect, useState } from "react"
+import { generateQRCode } from "../../utils/qrGenerator"
 
 const ShapeTab = ({
   selectedShape,
@@ -22,7 +24,25 @@ const ShapeTab = ({
   isCenterInverted,
   setIsCenterInverted,
   onOptionClick,
+  websiteUrl,
 }) => {
+  const [previews, setPreviews] = useState({})
+
+  useEffect(() => {
+    if (!websiteUrl) return
+    shapeStyles.forEach(async (shape) => {
+      const preview = await generateQRCode({
+        websiteUrl,
+        selectedShape: shape.id,
+        borderColor: borderColor || "#000000",
+        backgroundColor: backgroundColor || "#FFFFFF",
+        selectedLogo: "none",
+        isInverted: false,
+      })
+      setPreviews((prev) => ({ ...prev, [shape.id]: preview }))
+    })
+  }, [websiteUrl, borderColor, backgroundColor])
+
   return (
     <div className="space-y-6">
       {/* Shape Style */}
@@ -39,6 +59,7 @@ const ShapeTab = ({
                 setSelectedShape(shape.id)
                     if (onOptionClick) onOptionClick()
               }}
+              previewUrl={previews[shape.id]}
             />
               </div>
           ))}

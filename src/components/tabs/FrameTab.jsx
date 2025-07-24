@@ -1,6 +1,8 @@
 import { frameOptions } from "../../data/frameOptions"
 import FrameOption from "../FrameOption"
 import ColorInput from "../ColorInput"
+import { useEffect, useState } from "react"
+import { generateQRCode } from "../../utils/qrGenerator"
 
 const FrameTab = ({
   selectedFrame,
@@ -12,7 +14,29 @@ const FrameTab = ({
   backgroundColor,
   setBackgroundColor,
   onOptionClick,
+  websiteUrl,
+  selectedShape,
 }) => {
+  const [previews, setPreviews] = useState({})
+
+  useEffect(() => {
+    if (!websiteUrl) return
+    frameOptions.forEach(async (frame) => {
+      // Only generate for real frames, skip 'none'
+      if (frame.id === "none") return
+      const preview = await generateQRCode({
+        websiteUrl,
+        selectedFrame: frame.id,
+        borderColor: "#000000",
+        backgroundColor: "#FFFFFF",
+        selectedShape: "square",
+        selectedLogo: "none",
+        isInverted: false,
+      })
+      setPreviews((prev) => ({ ...prev, [frame.id]: preview }))
+    })
+  }, [websiteUrl])
+
   return (
     <div className="space-y-4">
       <div className="flex overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
@@ -25,6 +49,8 @@ const FrameTab = ({
               setSelectedFrame(frame.id)
                 if (onOptionClick) onOptionClick()
             }}
+            previewUrl={previews[frame.id]}
+            selectedShape={selectedShape}
           />
           </div>
         ))}

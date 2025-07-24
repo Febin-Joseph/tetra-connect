@@ -80,6 +80,8 @@ const DesignTabs = ({
           backgroundColor={backgroundColor}
           setBackgroundColor={setBackgroundColor}
           onOptionClick={handleOptionClick}
+          websiteUrl={websiteUrl}
+          selectedShape={selectedShape}
         />
       )}
 
@@ -104,6 +106,7 @@ const DesignTabs = ({
           isCenterInverted={isCenterInverted}
           setIsCenterInverted={setIsCenterInverted}
           onOptionClick={handleOptionClick}
+          websiteUrl={websiteUrl}
         />
       )}
 
