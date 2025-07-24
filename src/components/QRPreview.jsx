@@ -99,7 +99,7 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
         <div className="w-8 h-8 bg-gray-700 text-white rounded-md flex items-center justify-center font-bold">3</div>
         <h2 className="text-xl font-semibold text-gray-800">Download your QR</h2>
       </div>
-      <div className="flex flex-col items-center flex-1 justify-center">
+      <div className="flex flex-col items-center flex-1 justify-center mt-10">
         <div className="bg-white rounded-2xl shadow-lg flex items-center justify-center mb-8" style={{ width: '200px', height: '200px' }}>
           <FrameRenderer
             websiteUrl={websiteUrl}
