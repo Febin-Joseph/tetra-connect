@@ -12,31 +12,28 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-8 h-8 bg-black text-white rounded-md flex items-center justify-center font-bold">3</div>
-        <h2 className="text-xl font-semibold">Download your QR</h2>
+    <div className="bg-gray-100 rounded-2xl p-8 flex flex-col items-center w-full h-full min-h-[420px] justify-between">
+      <div className="flex items-center gap-3 mb-6 w-full">
+        <div className="w-8 h-8 bg-gray-700 text-white rounded-md flex items-center justify-center font-bold">3</div>
+        <h2 className="text-xl font-semibold text-gray-800">Download your QR</h2>
       </div>
-
-      <div className="text-center">
-        <div className="bg-gray-50 p-6 rounded-lg mb-4 flex items-center justify-center min-h-[200px]">
-          <FrameRenderer
-            websiteUrl={websiteUrl}
-            qrCodeDataUrl={qrCodeDataUrl}
-            selectedFrame={selectedFrame}
-            frameText={frameText}
-          />
+      <div className="flex flex-col items-center flex-1 justify-center">
+        <div className="bg-white rounded-2xl shadow-lg flex items-center justify-center mb-8" style={{ width: '200px', height: '200px' }}>
+          {qrCodeDataUrl ? (
+            <img src={qrCodeDataUrl} alt="Generated QR Code" className="w-32 h-32 object-contain" />
+          ) : (
+            <img src="/qr-code-right.svg" alt="QR Code Preview" className="w-20 h-20 object-contain" />
+          )}
         </div>
-
+      </div>
         <button
           onClick={downloadQR}
           disabled={!qrCodeDataUrl}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white h-12 text-base font-medium rounded-md transition-colors flex items-center justify-center gap-2"
+        className="w-full bg-gray-300 hover:bg-gray-400 disabled:bg-gray-200 text-gray-700 h-12 text-base font-medium rounded-lg transition-colors flex items-center justify-center gap-2 shadow-none border-none mt-6"
         >
           Download QR
           <ChevronDown className="w-4 h-4" />
         </button>
-      </div>
     </div>
   )
 }

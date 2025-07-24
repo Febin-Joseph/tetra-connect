@@ -2,19 +2,23 @@ import { logoOptions } from "../../data/logoOptions"
 import LogoOption from "../LogoOption"
 import { Upload } from "lucide-react"
 
-const LogoTab = ({ selectedLogo, setSelectedLogo }) => {
+const LogoTab = ({ selectedLogo, setSelectedLogo, onOptionClick }) => {
   return (
     <div className="space-y-6">
       <div>
         <h3 className="font-medium mb-4">Select a logo</h3>
-        <div className="grid grid-cols-5 gap-3">
+        <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
           {logoOptions.map((logo) => (
+            <div className="flex-shrink-0" key={logo.id}>
             <LogoOption
-              key={logo.id}
               logo={logo}
               isSelected={selectedLogo === logo.id}
-              onSelect={() => setSelectedLogo(logo.id)}
+              onSelect={() => {
+                setSelectedLogo(logo.id)
+                  if (onOptionClick) onOptionClick()
+              }}
             />
+            </div>
           ))}
         </div>
       </div>

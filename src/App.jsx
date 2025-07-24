@@ -1,10 +1,11 @@
 import QRGenerator from "./pages/QRGenerator"
+import Layout from "./components/Layout"
 
 function App() {
   return (
-    <div className="App">
+    <Layout>
       <QRGenerator />
-    </div>
+    </Layout>
   )
 }
 

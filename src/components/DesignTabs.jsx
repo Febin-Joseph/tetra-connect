@@ -30,6 +30,8 @@ const DesignTabs = ({
   setIsInverted,
   isCenterInverted,
   setIsCenterInverted,
+  websiteUrl,
+  triggerWebsiteValidation,
 }) => {
   const tabs = [
     { id: "frame", label: "Frame" },
@@ -38,21 +40,28 @@ const DesignTabs = ({
     { id: "level", label: "Level" },
   ]
 
+  // Handler to trigger website validation if input is empty or invalid
+  const handleOptionClick = () => {
+    if (!websiteUrl || !/^https?:\/\//.test(websiteUrl) || /^https?:\/\/$/.test(websiteUrl)) {
+      if (triggerWebsiteValidation) triggerWebsiteValidation()
+    }
+  }
+
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm">
+    <div className="rounded-2xl p-0">
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-8 h-8 bg-black text-white rounded-md flex items-center justify-center font-bold">2</div>
-        <h2 className="text-xl font-semibold">Design your QR</h2>
+        <div className="w-8 h-8 bg-gray-700 text-white rounded-md flex items-center justify-center font-bold">2</div>
+        <h2 className="text-xl font-semibold text-gray-800">Design your QR</h2>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 bg-gray-100 p-1 rounded-lg">
+      <div className="flex gap-1 mb-6">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-md text-sm font-medium capitalize transition-colors ${
-              activeTab === tab.id ? "bg-white text-blue-600 shadow-sm" : "text-gray-600 hover:text-gray-900"
+              activeTab === tab.id ? "bg-gray-100 text-blue-600" : "text-gray-600 hover:text-gray-900"
             }`}
           >
             {tab.label}
@@ -71,6 +80,7 @@ const DesignTabs = ({
           setBorderColor={setBorderColor}
           backgroundColor={backgroundColor}
           setBackgroundColor={setBackgroundColor}
+          onOptionClick={handleOptionClick}
         />
       )}
 
@@ -94,10 +104,11 @@ const DesignTabs = ({
           setIsInverted={setIsInverted}
           isCenterInverted={isCenterInverted}
           setIsCenterInverted={setIsCenterInverted}
+          onOptionClick={handleOptionClick}
         />
       )}
 
-      {activeTab === "logo" && <LogoTab selectedLogo={selectedLogo} setSelectedLogo={setSelectedLogo} />}
+      {activeTab === "logo" && <LogoTab selectedLogo={selectedLogo} setSelectedLogo={setSelectedLogo} onOptionClick={handleOptionClick} />}
 
       {activeTab === "level" && <LevelTab />}
     </div>

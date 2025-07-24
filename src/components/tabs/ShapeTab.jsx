@@ -21,21 +21,28 @@ const ShapeTab = ({
   setIsInverted,
   isCenterInverted,
   setIsCenterInverted,
+  onOptionClick,
 }) => {
   return (
     <div className="space-y-6">
       {/* Shape Style */}
       <div>
         <h3 className="font-medium mb-4">Shape style</h3>
-        <div className="grid grid-cols-5 gap-3">
+        <div className="group">
+          <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-hide group-hover:scrollbar-default">
           {shapeStyles.map((shape) => (
+              <div className="flex-shrink-0" key={shape.id}>
             <ShapeOption
-              key={shape.id}
               shape={shape}
               isSelected={selectedShape === shape.id}
-              onSelect={() => setSelectedShape(shape.id)}
+              onSelect={() => {
+                setSelectedShape(shape.id)
+                    if (onOptionClick) onOptionClick()
+              }}
             />
+              </div>
           ))}
+          </div>
         </div>
       </div>
 
@@ -55,36 +62,48 @@ const ShapeTab = ({
       {/* Border Style */}
       <div>
         <h3 className="font-medium mb-4">Border style</h3>
-        <div className="grid grid-cols-7 gap-3">
+        <div className="group">
+          <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-hide group-hover:scrollbar-default">
           {borderStyles.map((style) => (
+              <div className="flex-shrink-0" key={style.id}>
             <button
-              key={style.id}
-              onClick={() => setSelectedBorderStyle(style.id)}
-              className={`p-3 border-2 rounded-lg hover:border-blue-500 transition-colors ${
-                selectedBorderStyle === style.id ? "border-blue-500 bg-blue-50" : "border-gray-200"
+              onClick={() => {
+                setSelectedBorderStyle(style.id)
+                    if (onOptionClick) onOptionClick()
+              }}
+                  className={`p-3 rounded-xl transition-colors duration-150 focus:outline-none ${
+                    selectedBorderStyle === style.id ? "bg-blue-100" : "bg-white border border-gray-200 hover:border-gray-400"
               }`}
             >
               <div className={`w-6 h-6 border-2 border-black mx-auto ${style.className}`}></div>
             </button>
+              </div>
           ))}
+          </div>
         </div>
       </div>
 
       {/* Center Style */}
       <div>
         <h3 className="font-medium mb-4">Center style</h3>
-        <div className="grid grid-cols-7 gap-3">
+        <div className="group">
+          <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-hide group-hover:scrollbar-default">
           {centerStyles.map((style) => (
+              <div className="flex-shrink-0" key={style.id}>
             <button
-              key={style.id}
-              onClick={() => setSelectedCenterStyle(style.id)}
-              className={`p-3 border-2 rounded-lg hover:border-blue-500 transition-colors ${
-                selectedCenterStyle === style.id ? "border-blue-500 bg-blue-50" : "border-gray-200"
+              onClick={() => {
+                setSelectedCenterStyle(style.id)
+                    if (onOptionClick) onOptionClick()
+              }}
+                  className={`p-3 rounded-xl transition-colors duration-150 focus:outline-none ${
+                    selectedCenterStyle === style.id ? "bg-blue-100" : "bg-white border border-gray-200 hover:border-gray-400"
               }`}
             >
               <div className={`w-6 h-6 bg-black mx-auto ${style.className}`}></div>
             </button>
+              </div>
           ))}
+          </div>
         </div>
       </div>
 

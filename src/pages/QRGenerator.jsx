@@ -20,6 +20,9 @@ const QRGenerator = () => {
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("")
   const [isInverted, setIsInverted] = useState(false)
   const [isCenterInverted, setIsCenterInverted] = useState(false)
+  const [websiteInputTrigger, setWebsiteInputTrigger] = useState(0)
+
+  const triggerWebsiteValidation = () => setWebsiteInputTrigger(t => t + 1)
 
   const qrSettings = {
     websiteUrl,
@@ -54,53 +57,51 @@ const QRGenerator = () => {
   ])
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Panel */}
-          <div className="lg:col-span-2 space-y-8">
-            <ContentInput websiteUrl={websiteUrl} setWebsiteUrl={setWebsiteUrl} />
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Left Panel */}
+      <div className="lg:col-span-2 space-y-8">
+        <ContentInput websiteUrl={websiteUrl} setWebsiteUrl={setWebsiteUrl} triggerValidation={websiteInputTrigger} />
 
-            <DesignTabs
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-              selectedFrame={selectedFrame}
-              setSelectedFrame={setSelectedFrame}
-              selectedLogo={selectedLogo}
-              setSelectedLogo={setSelectedLogo}
-              selectedShape={selectedShape}
-              setSelectedShape={setSelectedShape}
-              selectedBorderStyle={selectedBorderStyle}
-              setSelectedBorderStyle={setSelectedBorderStyle}
-              selectedCenterStyle={selectedCenterStyle}
-              setSelectedCenterStyle={setSelectedCenterStyle}
-              borderColor={borderColor}
-              setBorderColor={setBorderColor}
-              backgroundColor={backgroundColor}
-              setBackgroundColor={setBackgroundColor}
-              centerBorderColor={centerBorderColor}
-              setCenterBorderColor={setCenterBorderColor}
-              centerBackgroundColor={centerBackgroundColor}
-              setCenterBackgroundColor={setCenterBackgroundColor}
-              frameText={frameText}
-              setFrameText={setFrameText}
-              isInverted={isInverted}
-              setIsInverted={setIsInverted}
-              isCenterInverted={isCenterInverted}
-              setIsCenterInverted={setIsCenterInverted}
-            />
-          </div>
+        <DesignTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          selectedFrame={selectedFrame}
+          setSelectedFrame={setSelectedFrame}
+          selectedLogo={selectedLogo}
+          setSelectedLogo={setSelectedLogo}
+          selectedShape={selectedShape}
+          setSelectedShape={setSelectedShape}
+          selectedBorderStyle={selectedBorderStyle}
+          setSelectedBorderStyle={setSelectedBorderStyle}
+          selectedCenterStyle={selectedCenterStyle}
+          setSelectedCenterStyle={setSelectedCenterStyle}
+          borderColor={borderColor}
+          setBorderColor={setBorderColor}
+          backgroundColor={backgroundColor}
+          setBackgroundColor={setBackgroundColor}
+          centerBorderColor={centerBorderColor}
+          setCenterBorderColor={setCenterBorderColor}
+          centerBackgroundColor={centerBackgroundColor}
+          setCenterBackgroundColor={setCenterBackgroundColor}
+          frameText={frameText}
+          setFrameText={setFrameText}
+          isInverted={isInverted}
+          setIsInverted={setIsInverted}
+          isCenterInverted={isCenterInverted}
+          setIsCenterInverted={setIsCenterInverted}
+          websiteUrl={websiteUrl}
+          triggerWebsiteValidation={triggerWebsiteValidation}
+        />
+      </div>
 
-          {/* Right Panel */}
-          <div className="space-y-6">
-            <QRPreview
-              websiteUrl={websiteUrl}
-              qrCodeDataUrl={qrCodeDataUrl}
-              selectedFrame={selectedFrame}
-              frameText={frameText}
-            />
-          </div>
-        </div>
+      {/* Right Panel */}
+      <div className="space-y-6">
+        <QRPreview
+          websiteUrl={websiteUrl}
+          qrCodeDataUrl={qrCodeDataUrl}
+          selectedFrame={selectedFrame}
+          frameText={frameText}
+        />
       </div>
     </div>
   )

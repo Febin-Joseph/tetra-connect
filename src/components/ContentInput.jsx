@@ -1,12 +1,15 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import React from "react"
 
-const ContentInput = ({ websiteUrl, setWebsiteUrl }) => {
+const ContentInput = ({ websiteUrl, setWebsiteUrl, triggerValidation }) => {
   const [touched, setTouched] = useState(false)
   const [error, setError] = useState("")
+  const initialTrigger = useRef(triggerValidation)
 
   const validate = (value) => {
     if (!value) return "Required field"
     if (!/^https?:\/\//.test(value)) return "URL must start with http or https"
+    if (/^https?:\/\/$/.test(value)) return "URL must be valid"
     return ""
   }
 
@@ -23,13 +26,22 @@ const ContentInput = ({ websiteUrl, setWebsiteUrl }) => {
     setError(validate(websiteUrl))
   }
 
+  // Show error if triggered externally (e.g. by clicking frame/shape/logo), but not on initial mount or if triggerValidation is still at its initial value
+  useEffect(() => {
+    if (triggerValidation !== initialTrigger.current) {
+      setTouched(true)
+      setError(validate(websiteUrl))
+    }
+    // eslint-disable-next-line
+  }, [triggerValidation])
+
   const isError = touched && error
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm">
+    <div className="mb-8">
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-8 h-8 bg-black text-white rounded-md flex items-center justify-center font-bold">1</div>
-        <h2 className="text-xl font-semibold">Complete the content</h2>
+        <div className="w-8 h-8 bg-gray-700 text-white rounded-md flex items-center justify-center font-bold">1</div>
+        <h2 className="text-xl font-semibold text-gray-800">Complete the content</h2>
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Enter your Website</label>
@@ -39,7 +51,7 @@ const ContentInput = ({ websiteUrl, setWebsiteUrl }) => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder="E.g. https://www.myweb.com/"
-          className={`w-full h-12 px-3 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${isError ? 'border-red-500' : 'border-gray-300'}`}
+          className={`w-full h-12 px-3 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 ${isError ? 'border-red-500' : 'border-gray-300'}`}
         />
         {isError && (
           <div className="flex items-center gap-1 mt-2 text-red-500 text-sm">
@@ -48,6 +60,7 @@ const ContentInput = ({ websiteUrl, setWebsiteUrl }) => {
           </div>
         )}
       </div>
+      <hr className="my-8 border-t border-gray-200" />
     </div>
   )
 }

@@ -11,17 +11,22 @@ const FrameTab = ({
   setBorderColor,
   backgroundColor,
   setBackgroundColor,
+  onOptionClick,
 }) => {
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-4 gap-4">
+      <div className="flex overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
         {frameOptions.map((frame) => (
+          <div className="flex-shrink-0" key={frame.id}>
           <FrameOption
-            key={frame.id}
             frame={frame}
             isSelected={selectedFrame === frame.id}
-            onSelect={() => setSelectedFrame(frame.id)}
+            onSelect={() => {
+              setSelectedFrame(frame.id)
+                if (onOptionClick) onOptionClick()
+            }}
           />
+          </div>
         ))}
       </div>
 
