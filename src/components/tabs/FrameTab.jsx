@@ -38,7 +38,7 @@ const FrameTab = ({
   }, [websiteUrl, selectedShape])
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 border border-gray-200 rounded-[10px] p-3">
       <div className="flex overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
         {frameOptions.map((frame) => (
           <div className="flex-shrink-0" key={frame.id}>
@@ -57,7 +57,7 @@ const FrameTab = ({
       </div>
 
       {selectedFrame !== "none" && (
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 space-y-4 bg-gray-100 p-2 rounded-[5px]">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Text</label>
             <input

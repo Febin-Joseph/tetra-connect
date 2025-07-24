@@ -8,17 +8,13 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
   const downloadQR = async () => {
     if (!qrCodeDataUrl) return
     const width = 400
-    const qrSize = 300
-    const barHeight = 60
-    const pointerHeight = 32
-    const padding = 24
-    let height = qrSize + padding * 2
-    if (selectedFrame === "classic" || selectedFrame === "pointer" || selectedFrame === "text-inside") {
-      height += barHeight
-    }
-    if (selectedFrame === "pointer") {
-      height += pointerHeight
-    }
+    const qrSize = 200
+    const cardPaddingTop = 48
+    const cardPaddingBottom = 56
+    const cardPaddingSides = 32
+    const textHeight = 48
+    const borderRadius = 40
+    let height = cardPaddingTop + qrSize + textHeight + cardPaddingBottom
     // Create canvas
     const canvas = document.createElement("canvas")
     canvas.width = width
@@ -27,17 +23,17 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
     // Fill background
     ctx.fillStyle = "#fff"
     ctx.fillRect(0, 0, width, height)
-    // Draw black border for all frames except 'none'
+    // Draw card border (rounded)
     if (selectedFrame !== "none") {
       ctx.save()
       ctx.strokeStyle = "#000"
       ctx.lineWidth = 8
       ctx.beginPath()
-      ctx.moveTo(padding, padding + 16)
-      ctx.arcTo(padding, padding, padding + qrSize, padding, 32)
-      ctx.arcTo(padding + qrSize, padding, padding + qrSize, padding + qrSize, 32)
-      ctx.arcTo(padding + qrSize, padding + qrSize, padding, padding + qrSize, 32)
-      ctx.arcTo(padding, padding + qrSize, padding, padding, 32)
+      ctx.moveTo(cardPaddingSides, cardPaddingTop + borderRadius)
+      ctx.arcTo(cardPaddingSides, cardPaddingTop, width - cardPaddingSides, cardPaddingTop, borderRadius)
+      ctx.arcTo(width - cardPaddingSides, cardPaddingTop, width - cardPaddingSides, height - cardPaddingBottom, borderRadius)
+      ctx.arcTo(width - cardPaddingSides, height - cardPaddingBottom, cardPaddingSides, height - cardPaddingBottom, borderRadius)
+      ctx.arcTo(cardPaddingSides, height - cardPaddingBottom, cardPaddingSides, cardPaddingTop, borderRadius)
       ctx.closePath()
       ctx.stroke()
       ctx.restore()
@@ -48,50 +44,47 @@ const QRPreview = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText, select
       qrImg.onload = resolve
       qrImg.src = qrCodeDataUrl
     })
-    ctx.drawImage(qrImg, (width - qrSize) / 2, padding, qrSize, qrSize)
-    // Draw frame
+    ctx.drawImage(qrImg, (width - qrSize) / 2, cardPaddingTop, qrSize, qrSize)
+    // Draw frame text
     if (selectedFrame === "classic") {
-      ctx.fillStyle = "#000"
-      ctx.fillRect((width - qrSize) / 2, padding + qrSize, qrSize, barHeight)
       ctx.font = "bold 28px Arial"
-      ctx.fillStyle = "#fff"
+      ctx.fillStyle = "#000"
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
-      ctx.fillText(frameText, width / 2, padding + qrSize + barHeight / 2)
-    } else if (selectedFrame === "pointer") {
-      ctx.fillStyle = "#000"
-      ctx.fillRect((width - qrSize) / 2, padding + qrSize, qrSize, barHeight)
-      ctx.beginPath()
-      ctx.moveTo(width / 2 - 40, padding + qrSize + barHeight)
-      ctx.lineTo(width / 2 + 40, padding + qrSize + barHeight)
-      ctx.lineTo(width / 2, padding + qrSize + barHeight + pointerHeight)
-      ctx.closePath()
-      ctx.fillStyle = "#000"
-      ctx.fill()
-      ctx.font = "bold 28px Arial"
-      ctx.fillStyle = "#fff"
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
-      ctx.fillText(frameText, width / 2, padding + qrSize + barHeight / 2)
+      ctx.fillText(frameText, width / 2, cardPaddingTop + qrSize + textHeight / 2)
     } else if (selectedFrame === "text-inside") {
+      // Draw horizontal line
       ctx.save()
       ctx.strokeStyle = "#000"
-      ctx.lineWidth = 8
+      ctx.lineWidth = 6
       ctx.beginPath()
-      ctx.moveTo((width - qrSize) / 2, padding + qrSize)
-      ctx.lineTo((width + qrSize) / 2, padding + qrSize)
-      ctx.lineTo((width + qrSize) / 2, padding + qrSize + barHeight)
-      ctx.lineTo((width - qrSize) / 2, padding + qrSize + barHeight)
-      ctx.closePath()
+      ctx.moveTo(cardPaddingSides + 8, cardPaddingTop + qrSize)
+      ctx.lineTo(width - cardPaddingSides - 8, cardPaddingTop + qrSize)
       ctx.stroke()
-      ctx.fillStyle = "#fff"
-      ctx.fillRect((width - qrSize) / 2, padding + qrSize, qrSize, barHeight)
       ctx.restore()
       ctx.font = "bold 28px Arial"
       ctx.fillStyle = "#000"
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
-      ctx.fillText(frameText, width / 2, padding + qrSize + barHeight / 2)
+      ctx.fillText(frameText, width / 2, cardPaddingTop + qrSize + textHeight / 2 + 12)
+    } else if (selectedFrame === "pointer") {
+      // Black bar
+      ctx.fillStyle = "#000"
+      ctx.fillRect(cardPaddingSides, cardPaddingTop + qrSize, width - cardPaddingSides * 2, textHeight)
+      // Pointer
+      ctx.beginPath()
+      ctx.moveTo(width / 2 - 40, cardPaddingTop + qrSize + textHeight)
+      ctx.lineTo(width / 2 + 40, cardPaddingTop + qrSize + textHeight)
+      ctx.lineTo(width / 2, cardPaddingTop + qrSize + textHeight + 32)
+      ctx.closePath()
+      ctx.fillStyle = "#000"
+      ctx.fill()
+      // Text
+      ctx.font = "bold 28px Arial"
+      ctx.fillStyle = "#fff"
+      ctx.textAlign = "center"
+      ctx.textBaseline = "middle"
+      ctx.fillText(frameText, width / 2, cardPaddingTop + qrSize + textHeight / 2)
     }
     // Download
     const link = document.createElement("a")

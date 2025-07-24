@@ -9,7 +9,6 @@ const FrameRenderer = ({ websiteUrl, qrCodeDataUrl, selectedFrame, frameText }) 
     )
   }
 
-  // QRBox: more padding, smaller QR code for all frames
   const QRBox = (
     <div className="flex items-center justify-center w-56 h-56 p-6">
       <img src={qrCodeDataUrl || "/placeholder.svg"} alt="QR Code" className="max-w-[168px] max-h-[168px] object-contain" />

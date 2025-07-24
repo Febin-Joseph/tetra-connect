@@ -44,7 +44,7 @@ const ShapeTab = ({
   }, [websiteUrl, borderColor, backgroundColor])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 border border-gray-200 rounded-[10px] p-3">
       {/* Shape Style */}
       <div>
         <h3 className="font-medium mb-4">Shape style</h3>
@@ -68,7 +68,7 @@ const ShapeTab = ({
       </div>
 
       {/* Color Controls */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-6 bg-gray-100 p-2 rounded-[5px]">
         <ColorInput label="Border colour" value={borderColor} onChange={setBorderColor} />
         <ColorInput label="Background colour" value={backgroundColor} onChange={setBackgroundColor} />
       </div>
@@ -121,7 +121,7 @@ const ShapeTab = ({
       </div>
 
       {/* Center Color Controls */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-6 bg-gray-100 p-2 rounded-[5px]">
         <ColorInput label="Border colour" value={centerBorderColor} onChange={setCenterBorderColor} />
         <ColorInput label="Background colour" value={centerBackgroundColor} onChange={setCenterBackgroundColor} />
       </div>
