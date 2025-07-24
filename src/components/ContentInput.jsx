@@ -26,14 +26,12 @@ const ContentInput = ({ websiteUrl, setWebsiteUrl, triggerValidation }) => {
     setError(validate(websiteUrl))
   }
 
-  // Show error if triggered externally (e.g. by clicking frame/shape/logo), but not on initial mount or if triggerValidation is still at its initial value
-  useEffect(() => {
+ useEffect(() => {
     if (triggerValidation !== initialTrigger.current) {
       setTouched(true)
       setError(validate(websiteUrl))
     }
-    // eslint-disable-next-line
-  }, [triggerValidation])
+    }, [triggerValidation])
 
   const isError = touched && error
 

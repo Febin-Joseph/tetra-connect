@@ -40,7 +40,6 @@ const DesignTabs = ({
     { id: "level", label: "Level" },
   ]
 
-  // Handler to trigger website validation if input is empty or invalid
   const handleOptionClick = () => {
     if (!websiteUrl || !/^https?:\/\//.test(websiteUrl) || /^https?:\/\/$/.test(websiteUrl)) {
       if (triggerWebsiteValidation) triggerWebsiteValidation()

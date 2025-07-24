@@ -51,14 +51,6 @@ const ShapeTab = ({
         <ColorInput label="Border colour" value={borderColor} onChange={setBorderColor} />
         <ColorInput label="Background colour" value={backgroundColor} onChange={setBackgroundColor} />
       </div>
-
-      <button
-        onClick={() => setIsInverted(!isInverted)}
-        className="text-blue-600 border border-blue-600 hover:bg-blue-50 px-4 py-2 rounded-md transition-colors"
-      >
-        🔄 Invert
-      </button>
-
       {/* Border Style */}
       <div>
         <h3 className="font-medium mb-4">Border style</h3>
@@ -112,13 +104,6 @@ const ShapeTab = ({
         <ColorInput label="Border colour" value={centerBorderColor} onChange={setCenterBorderColor} />
         <ColorInput label="Background colour" value={centerBackgroundColor} onChange={setCenterBackgroundColor} />
       </div>
-
-      <button
-        onClick={() => setIsCenterInverted(!isCenterInverted)}
-        className="text-blue-600 border border-blue-600 hover:bg-blue-50 px-4 py-2 rounded-md transition-colors"
-      >
-        🔄 Invert
-      </button>
     </div>
   )
 }
