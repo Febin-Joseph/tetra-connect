@@ -29,13 +29,13 @@ const FrameTab = ({
         selectedFrame: frame.id,
         borderColor: "#000000",
         backgroundColor: "#FFFFFF",
-        selectedShape: "square",
+        selectedShape: selectedShape,
         selectedLogo: "none",
         isInverted: false,
       })
       setPreviews((prev) => ({ ...prev, [frame.id]: preview }))
     })
-  }, [websiteUrl])
+  }, [websiteUrl, selectedShape])
 
   return (
     <div className="space-y-4">

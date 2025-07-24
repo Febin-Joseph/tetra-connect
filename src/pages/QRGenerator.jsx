@@ -24,6 +24,16 @@ const QRGenerator = () => {
 
   const triggerWebsiteValidation = () => setWebsiteInputTrigger(t => t + 1)
 
+  // Track if user has interacted with any customization
+  const isDefault =
+    selectedShape === "square" &&
+    selectedBorderStyle === "square" &&
+    selectedCenterStyle === "square" &&
+    borderColor === "#000000" &&
+    backgroundColor === "#FFFFFF" &&
+    centerBorderColor === "#000000" &&
+    centerBackgroundColor === "#000000"
+
   const qrSettings = {
     websiteUrl,
     selectedShape,
@@ -36,6 +46,7 @@ const QRGenerator = () => {
     selectedLogo,
     isInverted,
     isCenterInverted,
+    isDefault, // pass to generator
   }
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import FrameTab from "./tabs/FrameTab"
 import ShapeTab from "./tabs/ShapeTab"
 import LogoTab from "./tabs/LogoTab"
-import LevelTab from "./tabs/LevelTab"
 
 const DesignTabs = ({
   activeTab,
@@ -37,7 +36,6 @@ const DesignTabs = ({
     { id: "frame", label: "Frame" },
     { id: "shape", label: "Shape" },
     { id: "logo", label: "Logo" },
-    { id: "level", label: "Level" },
   ]
 
   const handleOptionClick = () => {
@@ -112,7 +110,6 @@ const DesignTabs = ({
 
       {activeTab === "logo" && <LogoTab selectedLogo={selectedLogo} setSelectedLogo={setSelectedLogo} onOptionClick={handleOptionClick} />}
 
-      {activeTab === "level" && <LevelTab />}
     </div>
   )
 }

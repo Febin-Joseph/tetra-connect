@@ -3,101 +3,67 @@ import React from "react"
 const MiniFrameRenderer = ({ frameId, qrCodeUrl }) => {
   if (frameId === "none") {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg">
+      <div className="flex items-center justify-center w-full h-full bg-white rounded-lg border border-gray-200">
         {qrCodeUrl ? (
-          <img src={qrCodeUrl} alt="QR Code" className="w-8 h-8 object-contain" />
+          <img src={qrCodeUrl} alt="QR Code" className="w-10 h-10 object-contain" />
         ) : (
-          <div className="w-8 h-8 bg-gray-200 rounded" />
+          <div className="w-10 h-10 bg-gray-200 rounded" />
         )}
       </div>
     )
   }
-  if (frameId === "envelope") {
+  if (frameId === "classic") {
     return (
-      <div className="relative w-full h-full flex items-center justify-center bg-white rounded-md border border-gray-300 overflow-hidden">
-        {/* Envelope shape */}
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-white border-b-2 border-gray-400" style={{ zIndex: 1 }} />
-        <div className="absolute top-0 left-0 w-0 h-0 border-l-[18px] border-r-[18px] border-t-[10px] border-l-transparent border-r-transparent border-t-gray-400 mx-auto" style={{ left: '50%', transform: 'translateX(-50%)' }} />
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white border-t-2 border-gray-400" style={{ zIndex: 1 }} />
-        {/* QR code */}
-        <div className="relative z-10 flex items-center justify-center w-full h-full">
+      <div className="flex flex-col items-center w-full h-full">
+        <div className="bg-white border-2 border-black rounded-lg flex items-center justify-center w-10 h-10 mx-auto mt-1">
           {qrCodeUrl ? (
-            <img src={qrCodeUrl} alt="QR Code" className="w-8 h-8 object-contain" />
+            <img src={qrCodeUrl} alt="QR Code" className="w-7 h-7 object-contain" />
           ) : (
-            <div className="w-8 h-8 bg-gray-200 rounded" />
+            <div className="w-7 h-7 bg-gray-200 rounded" />
           )}
+        </div>
+        <div className="w-10 h-3 bg-black rounded-b-lg flex items-center justify-center mt-1">
+          <span className="text-[8px] text-white font-bold">Text</span>
         </div>
       </div>
     )
   }
-  if (frameId === "card") {
+  if (frameId === "pointer") {
     return (
-      <div className="w-full h-full bg-white border border-gray-300 rounded shadow flex items-center justify-center">
-        {qrCodeUrl ? (
-          <img src={qrCodeUrl} alt="QR Code" className="w-8 h-8 object-contain" />
-        ) : (
-          <div className="w-8 h-8 bg-gray-200 rounded" />
-        )}
-      </div>
-    )
-  }
-  if (frameId === "hand") {
-    return (
-      <div className="w-full h-full bg-gray-100 rounded flex items-center justify-center relative">
-        {qrCodeUrl ? (
-          <img src={qrCodeUrl} alt="QR Code" className="w-8 h-8 object-contain" />
-        ) : (
-          <div className="w-8 h-8 bg-gray-200 rounded" />
-        )}
-        <span className="absolute bottom-0 right-0 text-xs" style={{ fontSize: '12px' }}>✋</span>
-      </div>
-    )
-  }
-  if (frameId === "note") {
-    return (
-      <div className="w-full h-full bg-yellow-100 border border-yellow-300 rounded flex items-center justify-center">
-        {qrCodeUrl ? (
-          <img src={qrCodeUrl} alt="QR Code" className="w-8 h-8 object-contain" />
-        ) : (
-          <div className="w-8 h-8 bg-gray-200 rounded" />
-        )}
-      </div>
-    )
-  }
-  if (frameId === "phone") {
-    return (
-      <div className="w-full h-full bg-black rounded-2xl flex items-center justify-center">
-        <div className="w-8 h-12 bg-white rounded-lg flex items-center justify-center">
+      <div className="flex flex-col items-center w-full h-full">
+        <div className="bg-white border-2 border-black rounded-lg flex items-center justify-center w-10 h-10 mx-auto mt-1">
           {qrCodeUrl ? (
-            <img src={qrCodeUrl} alt="QR Code" className="w-6 h-6 object-contain" />
+            <img src={qrCodeUrl} alt="QR Code" className="w-7 h-7 object-contain" />
           ) : (
-            <div className="w-6 h-6 bg-gray-200 rounded" />
+            <div className="w-7 h-7 bg-gray-200 rounded" />
           )}
+        </div>
+        <div className="relative w-10">
+          <div className="w-10 h-3 bg-black rounded-b-lg flex items-center justify-center mt-1">
+            <span className="text-[8px] text-white font-bold">Text</span>
+          </div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-2 w-3 h-3">
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 8L0 0H12L6 8Z" fill="black" />
+            </svg>
+          </div>
         </div>
       </div>
     )
   }
-  if (frameId === "delivery") {
+  if (frameId === "text-inside") {
     return (
-      <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center relative">
-        {qrCodeUrl ? (
-          <img src={qrCodeUrl} alt="QR Code" className="w-8 h-8 object-contain" />
-        ) : (
-          <div className="w-8 h-8 bg-gray-200 rounded" />
-        )}
-        <span className="absolute bottom-0 right-0 text-xs" style={{ fontSize: '12px' }}>🛵</span>
-      </div>
-    )
-  }
-  if (frameId === "coffee") {
-    return (
-      <div className="w-full h-full bg-amber-100 border border-amber-300 rounded flex items-center justify-center relative">
-        <span className="absolute top-0 left-0 w-full text-center text-xs" style={{ fontSize: '12px' }}>☕</span>
-        {qrCodeUrl ? (
-          <img src={qrCodeUrl} alt="QR Code" className="w-8 h-8 object-contain" />
-        ) : (
-          <div className="w-8 h-8 bg-gray-200 rounded" />
-        )}
+      <div className="flex flex-col items-center w-full h-full">
+        <div className="bg-white border-2 border-black rounded-lg flex items-center justify-center w-10 h-10 mx-auto mt-1">
+          {qrCodeUrl ? (
+            <img src={qrCodeUrl} alt="QR Code" className="w-7 h-7 object-contain" />
+          ) : (
+            <div className="w-7 h-7 bg-gray-200 rounded" />
+          )}
+        </div>
+        <div className="w-10 h-3 bg-white border-x-2 border-b-2 border-black rounded-b-lg flex items-center justify-center mt-1">
+          <span className="text-[8px] text-black font-bold">Text</span>
+        </div>
       </div>
     )
   }

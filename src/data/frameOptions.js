@@ -1,10 +1,6 @@
 export const frameOptions = [
   { id: "none", name: "No Frame" },
-  { id: "envelope", name: "Envelope" },
-  { id: "card", name: "Business Card" },
-  { id: "hand", name: "Hand" },
-  { id: "note", name: "Note" },
-  { id: "phone", name: "Phone" },
-  { id: "delivery", name: "Delivery" },
-  { id: "coffee", name: "Coffee" },
+  { id: "classic", name: "Classic" }, // QR with text bar below
+  { id: "pointer", name: "Pointer" }, // QR with pointer and text bar below
+  { id: "text-inside", name: "Text Inside" }, // QR with text inside white area below
 ];
