@@ -4,7 +4,7 @@ import { Upload } from "lucide-react"
 
 const LogoTab = ({ selectedLogo, setSelectedLogo, onOptionClick }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 border border-gray-200 rounded-[10px] p-3">
       <div>
         <h3 className="font-medium mb-4">Select a logo</h3>
         <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
